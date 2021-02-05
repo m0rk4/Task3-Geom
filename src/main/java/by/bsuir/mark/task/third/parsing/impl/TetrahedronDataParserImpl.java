@@ -24,7 +24,7 @@ public class TetrahedronDataParserImpl implements PolyhedronDataParser {
         for (String triplet : triplets) {
             points.add(extractPoint(triplet));
         }
-        Tetrahedron tetrahedron = new Tetrahedron(points);
+        Tetrahedron tetrahedron = new Tetrahedron( points);
         LOGGER.info("IN parseTetrahedronData - Tetrahedron: {} successfully created", tetrahedron);
         return tetrahedron;
     }

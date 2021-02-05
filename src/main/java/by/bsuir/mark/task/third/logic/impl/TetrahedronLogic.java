@@ -88,13 +88,13 @@ public class TetrahedronLogic implements PolyhedronLogic {
 
         switch (coordinatePlane) {
             case OXY:
-                neededPoints = findPointByCondition(polyhedron, p -> p.getZ() > 0);
+                neededPoints = findPointsNearCoordinatePlane(polyhedron, p -> p.getZ() > 0);
                 break;
             case OYZ:
-                neededPoints = findPointByCondition(polyhedron, p -> p.getX() > 0);
+                neededPoints = findPointsNearCoordinatePlane(polyhedron, p -> p.getX() > 0);
                 break;
             case OXZ:
-                neededPoints = findPointByCondition(polyhedron, p -> p.getY() > 0);
+                neededPoints = findPointsNearCoordinatePlane(polyhedron, p -> p.getY() > 0);
                 break;
             default:
                 throw new EnumConstantNotPresentException(CoordinatePlane.class, coordinatePlane.name());
@@ -113,6 +113,22 @@ public class TetrahedronLogic implements PolyhedronLogic {
         return onePointCase(polyhedron, pointsArr[0], coordinatePlane);
     }
 
+    private double onePointCase(Polyhedron polyhedron, Point3D point, CoordinatePlane coordinatePlane) {
+        Set<Point3D> points = polyhedron.getPoints();
+        List<Point3D> res = new ArrayList<>(4);
+        res.add(point);
+        for (Point3D point3D : points) {
+            if (!point3D.equals(point)) {
+                Point3D v = pointLogic.subtract(point3D, point);
+                res.add(getIntersectionPoint(point, v, coordinatePlane));
+            }
+        }
+
+        Polyhedron part = new Tetrahedron(res);
+
+        double partVolume = getPolyhedronVolume(part);
+        return partVolume / (getPolyhedronVolume(polyhedron) - partVolume);
+    }
 
     private List<Point3D> getIntersections(Point3D pointA, Point3D pointB, CoordinatePlane coordinatePlane, Set<Point3D> points) {
         List<Point3D> aConnections = new ArrayList<>(2);
@@ -123,27 +139,6 @@ public class TetrahedronLogic implements PolyhedronLogic {
             }
         }
         return aConnections;
-    }
-
-    private double onePointCase(Polyhedron polyhedron, Point3D point, CoordinatePlane coordinatePlane) {
-        Set<Point3D> points = polyhedron.getPoints();
-        List<Point3D> res = new ArrayList<>(3);
-        for (Point3D point3D : points) {
-            if (!point3D.equals(point)) {
-                Point3D v = pointLogic.subtract(point3D, point);
-                res.add(getIntersectionPoint(point, v, coordinatePlane));
-            }
-        }
-
-        Polyhedron part = new Tetrahedron(
-                point,
-                res.get(0),
-                res.get(1),
-                res.get(2)
-        );
-
-        double partVolume = getPolyhedronVolume(part);
-        return partVolume / (getPolyhedronVolume(polyhedron) - partVolume);
     }
 
     private Point3D getIntersectionPoint(Point3D point, Point3D vector, CoordinatePlane coordinatePlane) {
@@ -193,7 +188,7 @@ public class TetrahedronLogic implements PolyhedronLogic {
         }
     }
 
-    private Set<Point3D> findPointByCondition(
+    private Set<Point3D> findPointsNearCoordinatePlane(
             Polyhedron polyhedron,
             Function<Point3D, Boolean> functionToFilterThePointsOutsidePlane
     ) {

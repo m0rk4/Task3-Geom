@@ -3,7 +3,8 @@ package by.bsuir.mark.task.third.entity;
 import java.util.*;
 
 public abstract class Polyhedron {
-    private final Set<Point3D> points;
+
+    private Set<Point3D> points;
 
     public Polyhedron(Collection<Point3D> points) {
         Set<Point3D> pointsSet = new HashSet<>(points);
@@ -15,8 +16,12 @@ public abstract class Polyhedron {
         this.points = Collections.unmodifiableSet(pointsSet);
     }
 
-    public final Set<Point3D> getPoints() {
+    public Set<Point3D> getPoints() {
         return points;
+    }
+
+    public void setPoints(Set<Point3D> points) {
+        this.points = points;
     }
 
     @Override

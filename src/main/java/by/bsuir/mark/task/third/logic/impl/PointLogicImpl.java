@@ -4,6 +4,7 @@ import by.bsuir.mark.task.third.entity.Point3D;
 import by.bsuir.mark.task.third.logic.PointLogic;
 
 public class PointLogicImpl implements PointLogic {
+
     @Override
     public double getAngle(Point3D v1, Point3D v2) {
         final double ax = v1.getX();

@@ -1,14 +1,36 @@
 package by.bsuir.mark.task.third.entity;
 
-import java.util.List;
+import java.util.Collection;
 
 public class Tetrahedron extends Polyhedron {
+
+    private Integer id;
+
     public Tetrahedron(Point3D... points) {
         super(points);
     }
 
-    public Tetrahedron(List<Point3D> points) {
+    public Tetrahedron(Collection<Point3D> points) {
         super(points);
+    }
+
+    public Tetrahedron(Integer id, Point3D... points) {
+        this(points);
+        this.id = id;
+    }
+
+    public Tetrahedron(Integer id, Collection<Point3D> points) {
+        this(points);
+        this.id = id;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
@@ -23,6 +45,6 @@ public class Tetrahedron extends Polyhedron {
 
     @Override
     public String toString() {
-        return "Tetrahedron{points = " + getPoints() + "}";
+        return "Tetrahedron{id = " + id + ", points = " + getPoints() + "}";
     }
 }

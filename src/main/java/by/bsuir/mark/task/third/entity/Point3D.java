@@ -1,9 +1,6 @@
 package by.bsuir.mark.task.third.entity;
 
 public class Point3D {
-    public static final Point3D BIGGEST_POINT = new Point3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-    public static final Point3D LOWEST_POINT = new Point3D(Double.MIN_VALUE, Double.MIN_VALUE, Double.MIN_VALUE);
-
     private final double x;
     private final double y;
     private final double z;
@@ -51,7 +48,7 @@ public class Point3D {
 
     @Override
     public String toString() {
-        return "Point3D{x = " + getX() + ", y = " + getY() + ", z = " + getZ() + "}";
+        return "Point3D{x = " + x + ", y = " + y + ", z = " + z + "}";
     }
 
 }
