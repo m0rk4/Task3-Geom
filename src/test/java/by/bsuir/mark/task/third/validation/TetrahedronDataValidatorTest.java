@@ -12,9 +12,9 @@ public class TetrahedronDataValidatorTest {
         // given
         String sample = "";
         // when
-        boolean res = tetrahedronDataValidator.isValid(sample);
+        boolean result = tetrahedronDataValidator.isValid(sample);
         // then
-        Assert.assertFalse(res);
+        Assert.assertFalse(result);
     }
 
     @Test
@@ -22,9 +22,9 @@ public class TetrahedronDataValidatorTest {
         // given
         String sample = "1.0z 23.23 12.33|323.323    32.1 3.|1 23 3|9 5 3";
         // when
-        boolean res = tetrahedronDataValidator.isValid(sample);
+        boolean result = tetrahedronDataValidator.isValid(sample);
         // then
-        Assert.assertFalse(res);
+        Assert.assertFalse(result);
     }
 
     @Test
@@ -32,8 +32,8 @@ public class TetrahedronDataValidatorTest {
         // given
         String sample = "1.0 23.23 12.33|323.323    32.1 3|1 23 3|9 5 3";
         // when
-        boolean res = tetrahedronDataValidator.isValid(sample);
+        boolean result = tetrahedronDataValidator.isValid(sample);
         // then
-        Assert.assertTrue(res);
+        Assert.assertTrue(result);
     }
 }

@@ -6,7 +6,6 @@ import by.bsuir.mark.task.third.entity.Point3D;
 import by.bsuir.mark.task.third.entity.Polyhedron;
 import by.bsuir.mark.task.third.entity.Tetrahedron;
 import by.bsuir.mark.task.third.parsing.PolyhedronDataParser;
-import by.bsuir.mark.task.third.parsing.PolyhedronParserException;
 import by.bsuir.mark.task.third.validation.PolyhedronDataValidator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,7 +27,7 @@ public class PolyhedronCreatorTest {
     );
 
     @Before
-    public void setUp() throws DataException, PolyhedronParserException {
+    public void setUp() throws DataException {
         DataReader dataReader = mock(DataReader.class);
         when(dataReader.readData(anyString())).thenReturn(TEST_LINES);
 

@@ -106,10 +106,7 @@ public class TetrahedronLogic implements PolyhedronLogic {
         if (size == 0 || size == 4) {
             return 0.0;
         }
-//
-//        if (size == 2) {
-//          return twoPointsCase(polyhedron, pointsArr[0], pointsArr[1], coordinatePlane);
-//        }
+
         return onePointCase(polyhedron, pointsArr[0], coordinatePlane);
     }
 
@@ -128,17 +125,6 @@ public class TetrahedronLogic implements PolyhedronLogic {
 
         double partVolume = getPolyhedronVolume(part);
         return partVolume / (getPolyhedronVolume(polyhedron) - partVolume);
-    }
-
-    private List<Point3D> getIntersections(Point3D pointA, Point3D pointB, CoordinatePlane coordinatePlane, Set<Point3D> points) {
-        List<Point3D> aConnections = new ArrayList<>(2);
-        for (Point3D point : points) {
-            if (!point.equals(pointA) && !point.equals(pointB)) {
-                Point3D v = pointLogic.subtract(point, pointA);
-                aConnections.add(getIntersectionPoint(pointA, v, coordinatePlane));
-            }
-        }
-        return aConnections;
     }
 
     private Point3D getIntersectionPoint(Point3D point, Point3D vector, CoordinatePlane coordinatePlane) {
@@ -190,8 +176,7 @@ public class TetrahedronLogic implements PolyhedronLogic {
 
     private Set<Point3D> findPointsNearCoordinatePlane(
             Polyhedron polyhedron,
-            Function<Point3D, Boolean> functionToFilterThePointsOutsidePlane
-    ) {
+            Function<Point3D, Boolean> functionToFilterThePointsOutsidePlane) {
         Set<Point3D> points = polyhedron.getPoints();
         Set<Point3D> newPoints = new HashSet<>(points);
 
@@ -222,8 +207,11 @@ public class TetrahedronLogic implements PolyhedronLogic {
                 arePointOnAnyCoordinatePlane(pointsArr[1], pointsArr[2], pointsArr[3], coordinatePlane);
     }
 
-    private boolean arePointOnAnyCoordinatePlane(Point3D pointA, Point3D pointB, Point3D pointC, CoordinatePlane coordinatePlane) {
-        Point3D normalizedVectorByPlaneCoordinates = getNormalizedVectorByPlaneCoordinates(pointA, pointB, pointC);
+    private boolean arePointOnAnyCoordinatePlane(
+            Point3D pointFirst, Point3D pointSecond, Point3D pointThird, CoordinatePlane coordinatePlane) {
+
+        Point3D normalizedVectorByPlaneCoordinates
+                = getNormalizedVectorByPlaneCoordinates(pointFirst, pointSecond, pointThird);
 
         double x = normalizedVectorByPlaneCoordinates.getX();
         double y = normalizedVectorByPlaneCoordinates.getY();
@@ -237,7 +225,7 @@ public class TetrahedronLogic implements PolyhedronLogic {
             case OXZ:
                 return x == 0 && z == 0;
             default:
-                return false;
+                throw new EnumConstantNotPresentException(CoordinatePlane.class, coordinatePlane.name());
         }
     }
 
@@ -261,25 +249,30 @@ public class TetrahedronLogic implements PolyhedronLogic {
                 isBasis(v2, v3, v4);
     }
 
-    private boolean isBasis(Point3D v1, Point3D v2, Point3D v3) {
+    @Override
+    public void sort(List<Polyhedron> polyhedrons, Comparator<Polyhedron> comparator) {
+        polyhedrons.sort(comparator);
+    }
+
+    private boolean isBasis(Point3D vectorFirst, Point3D vectorSecond, Point3D vectorThird) {
         double[][] matrix = {
-                {v1.getX(), v1.getY(), v1.getZ()},
-                {v2.getX(), v2.getY(), v2.getZ()},
-                {v3.getX(), v3.getY(), v3.getZ()}
+                {vectorFirst.getX(), vectorFirst.getY(), vectorFirst.getZ()},
+                {vectorSecond.getX(), vectorSecond.getY(), vectorSecond.getZ()},
+                {vectorThird.getX(), vectorThird.getY(), vectorThird.getZ()}
         };
 
         return calculate3x3Det(matrix) != 0.0;
     }
 
-    private Point3D getNormalizedVectorByPlaneCoordinates(Point3D p1, Point3D p2, Point3D p3) {
-        double dy1 = p2.getX() - p1.getX();
-        double dz1 = p3.getX() - p1.getX();
+    private Point3D getNormalizedVectorByPlaneCoordinates(Point3D pointFirst, Point3D pointSecond, Point3D pointThird) {
+        double dy1 = pointSecond.getX() - pointFirst.getX();
+        double dz1 = pointThird.getX() - pointFirst.getX();
 
-        double dy2 = p2.getY() - p1.getY();
-        double dz2 = p3.getY() - p1.getY();
+        double dy2 = pointSecond.getY() - pointFirst.getY();
+        double dz2 = pointThird.getY() - pointFirst.getY();
 
-        double dy3 = p2.getZ() - p1.getZ();
-        double dz3 = p3.getZ() - p1.getZ();
+        double dy3 = pointSecond.getZ() - pointFirst.getZ();
+        double dz3 = pointThird.getZ() - pointFirst.getZ();
 
         return new Point3D(
                 (dy3 * dz2 - dy2 * dz3),

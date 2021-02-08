@@ -22,9 +22,9 @@ public class TetrahedronLogicTest {
                 new Point3D(0, 0, 0)
         );
         // when
-        double res = tetrahedronLogic.getPolyhedronVolume(polyhedron);
+        double result = tetrahedronLogic.getPolyhedronVolume(polyhedron);
         // then
-        Assert.assertEquals( 0.00786195, res,DELTA);
+        Assert.assertEquals( 0.00786195, result,DELTA);
     }
 
     @Test
@@ -37,9 +37,9 @@ public class TetrahedronLogicTest {
                 new Point3D(0, 0, 1)
         );
         // when
-        double res = tetrahedronLogic.getPolyhedronSurfaceArea(polyhedron);
+        double result = tetrahedronLogic.getPolyhedronSurfaceArea(polyhedron);
         // then
-        Assert.assertEquals( 2.36602541, res,DELTA);
+        Assert.assertEquals( 2.36602541, result,DELTA);
     }
 
     @Test
@@ -53,9 +53,9 @@ public class TetrahedronLogicTest {
         );
         CoordinatePlane coordinatePlane = CoordinatePlane.OYZ;
         // when
-        boolean res = tetrahedronLogic.isFaceOnCoordinatePlane(polyhedron, coordinatePlane);
+        boolean result = tetrahedronLogic.isFaceOnCoordinatePlane(polyhedron, coordinatePlane);
         // then
-        Assert.assertTrue(res);
+        Assert.assertTrue(result);
     }
 
     @Test
@@ -69,9 +69,9 @@ public class TetrahedronLogicTest {
         );
         CoordinatePlane coordinatePlane = CoordinatePlane.OXY;
         // when
-        boolean res = tetrahedronLogic.isFaceOnCoordinatePlane(polyhedron, coordinatePlane);
+        boolean result = tetrahedronLogic.isFaceOnCoordinatePlane(polyhedron, coordinatePlane);
         // then
-        Assert.assertFalse(res);
+        Assert.assertFalse(result);
     }
 
     @Test
@@ -84,9 +84,9 @@ public class TetrahedronLogicTest {
                 new Point3D(0, 0, 1)
         );
         // when
-        boolean res = tetrahedronLogic.isTetrahedron(polyhedron);
+        boolean result = tetrahedronLogic.isTetrahedron(polyhedron);
         // then
-        Assert.assertTrue(res);
+        Assert.assertTrue(result);
     }
 
     @Test
@@ -99,9 +99,9 @@ public class TetrahedronLogicTest {
                 new Point3D(0, 0, 0)
         );
         // when
-        boolean res = tetrahedronLogic.isTetrahedron(polyhedron);
+        boolean result = tetrahedronLogic.isTetrahedron(polyhedron);
         // then
-        Assert.assertFalse(res);
+        Assert.assertFalse(result);
     }
 
     @Test
@@ -115,9 +115,9 @@ public class TetrahedronLogicTest {
         );
         CoordinatePlane coordinatePlane = CoordinatePlane.OXY;
         // when
-        double res = tetrahedronLogic.getVolumesRatioDissectedByCoordinatePlane(polyhedron, coordinatePlane);
+        double result = tetrahedronLogic.getVolumesRatioDissectedByCoordinatePlane(polyhedron, coordinatePlane);
         // then
-        Assert.assertEquals(0.14285714285714288 , res, DELTA);
+        Assert.assertEquals(0.14285714285714288 , result, DELTA);
     }
 
 

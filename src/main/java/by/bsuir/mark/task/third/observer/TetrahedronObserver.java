@@ -11,6 +11,9 @@ public class TetrahedronObserver implements Observer {
 
     private static TetrahedronObserver instance;
 
+    private final PolyhedronLogic polyhedronLogic;
+    private final Map<Integer, TetrahedronParameters> parameters;
+
     private TetrahedronObserver() {
         polyhedronLogic = new TetrahedronLogic();
         parameters = new HashMap<>();
@@ -22,9 +25,6 @@ public class TetrahedronObserver implements Observer {
         }
         return instance;
     }
-
-    private final PolyhedronLogic polyhedronLogic;
-    private final Map<Integer, TetrahedronParameters> parameters;
 
     @Override
     public void update(TetrahedronObservable tetrahedronObservable) {

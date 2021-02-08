@@ -12,13 +12,8 @@ import java.util.Map;
 
 public class TetrahedronRepositoryImpl implements TetrahedronRepository {
 
-    private final Map<Integer, Tetrahedron> tetrahedronSource;
-    private final IdGenerator<Integer> idGenerator;
-
-    public TetrahedronRepositoryImpl() {
-        tetrahedronSource = new HashMap<>();
-        idGenerator = new IntegerIdGeneratorImpl();
-    }
+    private final Map<Integer, Tetrahedron> tetrahedronSource = new HashMap<>();
+    private final IdGenerator<Integer> idGenerator = new IntegerIdGeneratorImpl();
 
     @Override
     public Tetrahedron addTetrahedron(Tetrahedron tetrahedron) {
@@ -49,7 +44,7 @@ public class TetrahedronRepositoryImpl implements TetrahedronRepository {
     @Override
     public List<Tetrahedron> processQuery(TetrahedronSpecification specification) {
         List<Tetrahedron> tetrahedrons = new ArrayList<>();
-        for (Tetrahedron tetrahedron: tetrahedronSource.values()) {
+        for (Tetrahedron tetrahedron : tetrahedronSource.values()) {
             if (specification.isSpecified(tetrahedron)) {
                 tetrahedrons.add(tetrahedron);
             }

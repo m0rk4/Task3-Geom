@@ -3,7 +3,8 @@ package by.bsuir.mark.task.third.specification;
 import by.bsuir.mark.task.third.entity.Octant;
 import by.bsuir.mark.task.third.entity.Point3D;
 import by.bsuir.mark.task.third.entity.Tetrahedron;
-import by.bsuir.mark.task.third.specification.impl.TetrahedronByIdSpecification;
+import by.bsuir.mark.task.third.logic.PointLogic;
+import by.bsuir.mark.task.third.logic.impl.PointLogicImpl;
 import by.bsuir.mark.task.third.specification.impl.TetrahedronByPointsInOctantSpecification;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,8 +12,9 @@ import org.junit.Test;
 public class TetrahedronByPointsInOctantSpecificationTest {
 
     private static final Octant OCTANT_TEST = Octant.I;
+    private final PointLogic pointLogic = new PointLogicImpl();
     private final TetrahedronSpecification tetrahedronSpecification =
-            new TetrahedronByPointsInOctantSpecification(OCTANT_TEST);
+            new TetrahedronByPointsInOctantSpecification(OCTANT_TEST, pointLogic);
 
     @Test
     public void testIsSpecifiedShouldReturnTrueWhenAllPointsInOctant() {

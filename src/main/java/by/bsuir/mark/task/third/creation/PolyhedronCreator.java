@@ -4,7 +4,6 @@ import by.bsuir.mark.task.third.data.DataException;
 import by.bsuir.mark.task.third.data.DataReader;
 import by.bsuir.mark.task.third.entity.Polyhedron;
 import by.bsuir.mark.task.third.parsing.PolyhedronDataParser;
-import by.bsuir.mark.task.third.parsing.PolyhedronParserException;
 import by.bsuir.mark.task.third.validation.PolyhedronDataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +35,7 @@ public class PolyhedronCreator {
                     polyhedrons.add(polyhedron);
                 }
             }
-        } catch (DataException | PolyhedronParserException e) {
+        } catch (DataException e) {
             throw new PolyhedronCreatorException(e.getMessage(), e);
         }
         LOGGER.info("IN createPolyhedrons - List of polyhedrons: {} successfully created", polyhedrons);
